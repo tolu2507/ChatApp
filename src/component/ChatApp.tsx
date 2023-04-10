@@ -16,67 +16,76 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import {firebase} from '@react-native-firebase/firestore';
 import {Button} from './Button';
 import User from '../common/User';
-import {background, person, white} from './images';
+import {background, white} from './images';
 
 type Message = {
   id: string;
   texts: string;
+  read?: boolean;
   createdAt: number;
   user: {
     uid: number;
     displayName: string;
-    photoURL: string;
   };
 };
 
-const ChatScreen = ({route}: any) => {
-  const {res} = route.params;
+const ChatScreen = ({route, navigation}: any) => {
+  const {res, user, data} = route.params;
   const [messages, setMessages] = useState<Message[] | any[]>([]);
   const [text, setText] = useState<string>('');
   const [ids, setId] = useState<number>(0);
-  const [name, setName] = useState<string>('sneh');
   const [bool, setBool] = useState<boolean>(true);
   const [selected, setSelected] = useState<Message['id'][]>([]);
   const [mode, setMode] = useState(background);
+  const string = user.id + res.id;
+
+  const cast: () => any = () => {
+    if (string !== null || string !== undefined || string.length > 0) {
+      let response: string;
+      let modifiedString = string.replace(/[0-9]/g, '').toUpperCase();
+      response = modifiedString.split('').sort().join('');
+      return response;
+    }
+  };
+
+  const database: string = cast();
 
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
-      .collection('messages')
+      .collection(database)
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
-        const data = querySnapshot.docs.map(doc => ({
+        const datas = querySnapshot.docs.map(doc => ({
           ...doc.data(),
           id: doc.id,
         }));
         if (!querySnapshot.empty) {
-          setMessages(data);
+          setMessages(datas);
         }
       });
 
     console.log(selected);
 
     return () => unsubscribe();
-  }, [selected]);
+  }, [selected, database]);
 
   const onSend = async () => {
-    setBool(!bool);
+    setBool(false);
     let count = ids + 1;
     const createdAt = new Date().getTime();
-    const user = {uid: ids, displayName: name, photoURL: 'http://'};
-    // setName(name === 'ade' ? 'sneh' : 'ade');
     setId(count);
 
     await firebase
       .firestore()
-      .collection('messages')
+      .collection(database)
       .add({
         texts: text,
         createdAt,
+        read: bool,
         user: {
-          uid: user.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
+          uid: user.id,
+          displayName: user.name,
         },
       });
 
@@ -86,10 +95,10 @@ const ChatScreen = ({route}: any) => {
   const renderItem = ({item}: {item: Message}) => {
     let {id} = item;
     const backgroundColor =
-      item.user.displayName === 'ade' ? '#008000' : 'lightgreen';
+      item.user.displayName === user.name ? '#008000' : 'lightgreen';
     const alignItems =
-      item.user.displayName === 'ade' ? 'flex-start' : 'flex-end';
-    const color = item.user.displayName === 'ade' ? 'white' : 'black';
+      item.user.displayName === user.name ? 'flex-end' : 'flex-start';
+    const color = item.user.displayName === user.name ? 'white' : 'black';
 
     return (
       <View
@@ -120,7 +129,7 @@ const ChatScreen = ({route}: any) => {
           <Text style={{fontSize: 18, color, textAlign: 'left'}}>
             {item.texts}
           </Text>
-          {item.user.displayName === 'sneh' && (
+          {item.user.displayName === user.name && (
             <View
               style={{
                 display: 'flex',
@@ -146,7 +155,7 @@ const ChatScreen = ({route}: any) => {
                   <Text>time</Text>
                 </View>
                 <View>
-                  {bool === true ? (
+                  {item?.read === true ? (
                     <Icons
                       name={'md-checkmark-done-sharp'}
                       color={'black'}
@@ -168,11 +177,11 @@ const ChatScreen = ({route}: any) => {
     );
   };
 
-  const borderColor = name === 'sneh' ? '#008000' : 'red';
+  const borderColor = res.name ? '#008000' : 'red';
 
   return (
     <ImageBackground source={mode} style={{flex: 1}}>
-      {res === 'loggedIn' && (
+      {res.name && (
         <View style={{flex: 1, margin: 1}}>
           <View
             style={{
@@ -180,13 +189,16 @@ const ChatScreen = ({route}: any) => {
               padding: 5,
               justifyContent: 'space-between',
               alignItems: 'center',
-              backgroundColor: 'grey',
+              backgroundColor: mode === background ? '#B4BAFF' : '#654EE8',
               height: 80,
               borderBottomLeftRadius: 35,
               borderBottomRightRadius: 35,
             }}>
             <Pressable
-              onPress={() => setSelected([])}
+              onPress={() => {
+                setSelected([]);
+                navigation.navigate('Users', {res: user, data: data});
+              }}
               style={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -195,14 +207,14 @@ const ChatScreen = ({route}: any) => {
                 padding: 1,
                 borderRadius: 15,
               }}
-              android_ripple={{color: '#FFFFFF', borderless: true, radius: 34}}>
+              android_ripple={{color: '#FFFFFF'}}>
               <Icons
                 name={'arrow-back-circle-sharp'}
                 size={20}
                 color={'white'}
               />
               <Image
-                source={person}
+                source={{uri: res.image}}
                 style={{
                   width: 40,
                   height: 40,
@@ -213,7 +225,7 @@ const ChatScreen = ({route}: any) => {
               />
             </Pressable>
             <User
-              name={'Bamisile Tolulope'}
+              name={res.name}
               onPress={() =>
                 console.log('this is the profile details, thou you are coding')
               }
@@ -233,7 +245,6 @@ const ChatScreen = ({route}: any) => {
               }
               onPress={() => {
                 setBool(true);
-                setName(name === 'ade' ? 'sneh' : 'ade');
                 setMode(mode === white ? background : white);
               }}
               style={{
@@ -265,7 +276,6 @@ const ChatScreen = ({route}: any) => {
               padding: 3,
               justifyContent: 'center',
               alignItems: 'center',
-              // backgroundColor: 'grey',
               maxHeight: 150,
               borderTopLeftRadius: 35,
               borderBottomRightRadius: 35,
@@ -274,8 +284,8 @@ const ChatScreen = ({route}: any) => {
               style={{
                 flex: 1,
                 margin: 2,
-                backgroundColor: mode === background ? '#FFFFFF' : '#000000',
-                color: mode === background ? '#000000' : '#FFFFFF',
+                backgroundColor: mode === background ? '#B4BAFF' : '#654EE8',
+                color: mode === background ? '#654EE8' : '#FFFFFF',
                 borderRadius: 20,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -286,14 +296,14 @@ const ChatScreen = ({route}: any) => {
               onChangeText={setText}
             />
             <Button
-              icon={<Icon name={'send'} size={25} color={'#008000'} />}
+              icon={<Icon name={'send'} size={25} color={'#FFFFFF'} />}
               onPress={onSend}
               style={{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: mode === background ? '#FFFFFF' : '#000000',
+                backgroundColor: mode === background ? '#B4BAFF' : '#654EE8',
                 width: 50,
                 height: 50,
                 borderRadius: 25,
@@ -304,7 +314,7 @@ const ChatScreen = ({route}: any) => {
           </View>
         </View>
       )}
-      {res !== 'loggedIn' && (
+      {!res.name && (
         <View style={{flex: 1}}>
           <View
             style={{

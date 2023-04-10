@@ -7,6 +7,7 @@ export type USER = {
   password: string;
   phonenumber: string;
   image: string;
+  onPress?: () => void;
 };
 export const Service = {
   createUser: async (details: USER) => {

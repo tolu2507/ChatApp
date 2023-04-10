@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Image, Platform, Alert} from 'react-native';
 import {firebase} from '@react-native-firebase/auth';
-import {AnimatedButton, Button} from './Button';
+import { Button} from './Button';
 // import {person} from './images';
 import {launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
@@ -80,10 +80,10 @@ const Register = ({navigation}: any) => {
   const signUp = async () => {
     try {
       const user_details: USER = {
-        name,
-        email,
-        password,
-        phonenumber,
+        name: name,
+        email: email,
+        password: password,
+        phonenumber: phonenumber,
         image: imageUrl,
       };
       await Service.createUser(user_details);
@@ -220,17 +220,16 @@ const Register = ({navigation}: any) => {
             color: 'white',
           }}
         />
-        <AnimatedButton
+        <Button
           text={'Sign In'}
           onPress={signUp}
-          animationStyle={{
+          style={{
             backgroundColor: '#008000',
             padding: 15,
             borderRadius: 15,
             alignItems: 'center',
             marginBottom: 10,
           }}
-          animate={'shake'}
         />
         <View
           style={{

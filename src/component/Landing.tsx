@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import {landing} from './images';
-import {AnimatedButton} from './Button';
+import { Button} from './Button';
 
 const Landing = ({navigation}: any) => {
   return (
@@ -52,19 +52,18 @@ const Landing = ({navigation}: any) => {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <AnimatedButton
+        <Button
           text="LOGIN"
-          animate="shake"
-          view={{
-            width: 176,
-            height: 70,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          // view={{
+          //   width: 176,
+          //   height: 70,
+          //   display: 'flex',
+          //   flexDirection: 'row',
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          // }}
           onPress={() => navigation.navigate('Login')}
-          animationStyle={{
+          style={{
             padding: 15,
             width: '49.7%',
             height: 70,
@@ -76,19 +75,10 @@ const Landing = ({navigation}: any) => {
             borderTopRightRadius: 35,
           }}
         />
-        <AnimatedButton
-          animate="tada"
-          view={{
-            width: 176,
-            height: 70,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+        <Button
           text="REGISTER"
           onPress={() => navigation.navigate('Register')}
-          animationStyle={{
+          style={{
             padding: 15,
             width: '49.7%',
             height: 70,

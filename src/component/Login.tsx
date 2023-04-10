@@ -3,18 +3,18 @@
 import React, {useState} from 'react';
 import {View, TextInput, Text} from 'react-native';
 import {firebase} from '@react-native-firebase/auth';
-import {AnimatedButton, Button} from './Button';
+import {Button} from './Button';
 import {USER} from '../services/UserService';
 
 export const Login = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const default_details: USER = {
-    email: 'fadeke@gmail.com',
+    email: email,
     image:
       'https://firebasestorage.googleapis.com/v0/b/chatzz-338a2.appspot.com/o/rn_image_picker_lib_temp_b148caed-3ba3-4093-8164-d0c742e3e07a.jpg?alt=media&token=1e2538d3-fef5-476c-9bee-ba07a184b4e8',
     name: 'Fadeke ',
-    password: 'fadeke',
+    password: password,
     phonenumber: '07038968337',
   };
 
@@ -75,17 +75,16 @@ export const Login = ({navigation}: any) => {
           backgroundColor: 'black',
         }}
       />
-      <AnimatedButton
+      <Button
         text={'Sign In'}
         onPress={signIn}
-        animationStyle={{
+        style={{
           backgroundColor: '#008000',
           padding: 15,
           borderRadius: 15,
           alignItems: 'center',
           marginBottom: 10,
         }}
-        animate={'shake'}
       />
       <View
         style={{
