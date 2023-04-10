@@ -20,7 +20,8 @@ const Card = (items: Service) => {
         borderRadius: 20,
       }}
       onPress={items.onPress}
-      disabled={items.disable}>
+      disabled={items.disable}
+      android_ripple={{color: '#B4BAFF'}}>
       <Image
         source={items.image}
         style={{width: 250, height: 200, borderRadius: 20}}
