@@ -95,7 +95,7 @@ const ChatScreen = ({route, navigation}: any) => {
   const renderItem = ({item}: {item: Message}) => {
     let {id} = item;
     const backgroundColor =
-      item.user.displayName === user.name ? '#008000' : 'lightgreen';
+      item.user.displayName === user.name ? '#654EE8' : '#B4BAFF';
     const alignItems =
       item.user.displayName === user.name ? 'flex-end' : 'flex-start';
     const color = item.user.displayName === user.name ? 'white' : 'black';
