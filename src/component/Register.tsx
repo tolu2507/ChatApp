@@ -104,10 +104,8 @@ const Register = ({navigation}: any) => {
   return (
     <View
       style={{
-        padding: 15,
+        padding: 5,
         display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
         flex: 1,
         backgroundColor: '#654EE8',
       }}>
@@ -115,52 +113,70 @@ const Register = ({navigation}: any) => {
         style={{
           padding: 15,
           display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
           flex: 1,
         }}>
         <View>
-          <Button
-            style={{
-              borderRadius: 5,
-              width: 150,
-              height: 50,
-              backgroundColor: '#8ac6d1',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={selectImage}
-            text="Pick an image"
-          />
+          {image === null ? (
+            <Button
+              style={{
+                borderRadius: 5,
+                width: 150,
+                height: 50,
+                backgroundColor: '#B4BAFF',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={selectImage}
+              text="Pick an image"
+            />
+          ) : !uploading ? (
+            <Button
+              style={{
+                borderRadius: 5,
+                width: 150,
+                height: 50,
+                backgroundColor: '#B4BAFF',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: 5,
+              }}
+              onPress={uploadImage}
+              text="Upload image"
+            />
+          ) : null}
           <View
             style={{
+              padding: 5,
               width: 300,
-              height: 300,
+              height: 160,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
             {image !== null ? (
-              <Image
-                source={{uri: image.uri}}
-                style={{width: 200, height: 200, borderRadius: 50}}
-              />
+              <View
+                style={{
+                  padding: 5,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: 50,
+                }}>
+                <Image
+                  source={{uri: image.uri}}
+                  style={{width: 150, height: 150, borderRadius: 50}}
+                />
+              </View>
             ) : null}
             {uploading ? (
               <View style={{marginTop: 5}}>
                 <Progress.Bar progress={transferred} width={300} />
               </View>
             ) : (
-              <Button
-                style={{
-                  borderRadius: 5,
-                  width: 150,
-                  height: 50,
-                  backgroundColor: '#ffb6b9',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: 20,
-                }}
-                onPress={uploadImage}
-                text="Upload image"
-              />
+              <View />
             )}
           </View>
         </View>
