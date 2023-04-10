@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Image, Platform, Alert} from 'react-native';
 import {firebase} from '@react-native-firebase/auth';
-import { Button} from './Button';
+import {Button} from './Button';
 // import {person} from './images';
 import {launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
@@ -104,154 +104,161 @@ const Register = ({navigation}: any) => {
   return (
     <View
       style={{
-        padding: 10,
+        padding: 15,
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
         flex: 1,
+        backgroundColor: '#654EE8',
       }}>
-      <View>
-        <Button
-          style={{
-            borderRadius: 5,
-            width: 150,
-            height: 50,
-            backgroundColor: '#8ac6d1',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={selectImage}
-          text="Pick an image"
-        />
-        <View
-          style={{
-            width: 300,
-            height: 300,
-          }}>
-          {image !== null ? (
-            <Image
-              source={{uri: image.uri}}
-              style={{width: 200, height: 200, borderRadius: 50}}
-            />
-          ) : null}
-          {uploading ? (
-            <View style={{marginTop: 5}}>
-              <Progress.Bar progress={transferred} width={300} />
-            </View>
-          ) : (
-            <Button
-              style={{
-                borderRadius: 5,
-                width: 150,
-                height: 50,
-                backgroundColor: '#ffb6b9',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: 20,
-              }}
-              onPress={uploadImage}
-              text="Upload image"
-            />
-          )}
-        </View>
-      </View>
-      <View style={{flex: 1, marginTop: 10}}>
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          style={{
-            marginBottom: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            padding: 10,
-            backgroundColor: 'black',
-            color: 'white',
-          }}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          style={{
-            marginBottom: 10,
-            padding: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            backgroundColor: 'black',
-          }}
-        />
-        <TextInput
-          placeholder="Phonenumber"
-          value={phonenumber}
-          onChangeText={setPhonenumber}
-          keyboardType="numeric"
-          style={{
-            marginBottom: 10,
-            padding: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            backgroundColor: 'black',
-            color: 'white',
-          }}
-        />
-        <TextInput
-          placeholder="Enter your Name"
-          value={name}
-          onChangeText={setName}
-          keyboardType="default"
-          style={{
-            marginBottom: 10,
-            padding: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            backgroundColor: 'black',
-            color: 'white',
-          }}
-        />
-        <Button
-          text={'Sign In'}
-          onPress={signUp}
-          style={{
-            backgroundColor: '#008000',
-            padding: 15,
-            borderRadius: 15,
-            alignItems: 'center',
-            marginBottom: 10,
-          }}
-        />
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: 'black', fontFamily: 'San-serif', fontSize: 22}}>
-            Already Registered ?
-          </Text>
+      <View
+        style={{
+          padding: 15,
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+          flex: 1,
+        }}>
+        <View>
           <Button
-            text={'Sign in'}
-            onPress={() => navigation.navigate('Login')}
             style={{
-              backgroundColor: 'grey',
+              borderRadius: 5,
+              width: 150,
+              height: 50,
+              backgroundColor: '#8ac6d1',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={selectImage}
+            text="Pick an image"
+          />
+          <View
+            style={{
+              width: 300,
+              height: 300,
+            }}>
+            {image !== null ? (
+              <Image
+                source={{uri: image.uri}}
+                style={{width: 200, height: 200, borderRadius: 50}}
+              />
+            ) : null}
+            {uploading ? (
+              <View style={{marginTop: 5}}>
+                <Progress.Bar progress={transferred} width={300} />
+              </View>
+            ) : (
+              <Button
+                style={{
+                  borderRadius: 5,
+                  width: 150,
+                  height: 50,
+                  backgroundColor: '#ffb6b9',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 20,
+                }}
+                onPress={uploadImage}
+                text="Upload image"
+              />
+            )}
+          </View>
+        </View>
+        <View style={{flex: 1, marginTop: 10}}>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            style={{
+              marginBottom: 10,
+              borderWidth: 0,
+              paddingHorizontal: 10,
+              borderRadius: 15,
+              padding: 15,
+              backgroundColor: '#7D67F7',
+              color: 'white',
+            }}
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={{
+              marginBottom: 10,
+              padding: 15,
+              borderWidth: 0,
+              paddingHorizontal: 10,
+              borderRadius: 15,
+              backgroundColor: '#7D67F7',
+            }}
+          />
+          <TextInput
+            placeholder="Phonenumber"
+            value={phonenumber}
+            onChangeText={setPhonenumber}
+            keyboardType="numeric"
+            style={{
+              marginBottom: 10,
+              padding: 15,
+              borderWidth: 0,
+              paddingHorizontal: 10,
+              borderRadius: 15,
+              backgroundColor: '#7D67F7',
+              color: 'white',
+            }}
+          />
+          <TextInput
+            placeholder="Enter your Name"
+            value={name}
+            onChangeText={setName}
+            keyboardType="default"
+            style={{
+              marginBottom: 10,
+              padding: 15,
+              borderWidth: 0,
+              paddingHorizontal: 10,
+              borderRadius: 15,
+              backgroundColor: '#7D67F7',
+              color: 'white',
+            }}
+          />
+          <Button
+            text={'Sign In'}
+            onPress={signUp}
+            style={{
+              backgroundColor: '#B4BAFF',
               padding: 15,
               borderRadius: 15,
               alignItems: 'center',
-              borderBottom: 10,
+              marginBottom: 10,
             }}
           />
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{color: 'black', fontFamily: 'San-serif', fontSize: 22}}>
+              Already Registered ?
+            </Text>
+            <Button
+              text={'Sign in'}
+              onPress={() => navigation.navigate('Login')}
+              style={{
+                backgroundColor: '#7D67F7',
+                padding: 15,
+                borderRadius: 15,
+                alignItems: 'center',
+                borderBottom: 10,
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>

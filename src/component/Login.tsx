@@ -41,72 +41,82 @@ export const Login = ({navigation}: any) => {
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        marginTop: 250,
+        flex: 1,
+        backgroundColor: '#654EE8',
       }}>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        style={{
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: 'gray',
-          paddingHorizontal: 10,
-          borderRadius: 15,
-          padding: 10,
-          backgroundColor: 'black',
-          color: 'white',
-        }}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={{
-          marginBottom: 10,
-          padding: 10,
-          borderWidth: 1,
-          borderColor: 'gray',
-          paddingHorizontal: 10,
-          borderRadius: 15,
-          backgroundColor: 'black',
-        }}
-      />
-      <Button
-        text={'Sign In'}
-        onPress={signIn}
-        style={{
-          backgroundColor: '#008000',
-          padding: 15,
-          borderRadius: 15,
-          alignItems: 'center',
-          marginBottom: 10,
-        }}
-      />
       <View
         style={{
+          padding: 10,
           display: 'flex',
-          flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          flexDirection: 'column',
+          marginTop: 250,
         }}>
-        <Text style={{color: 'black', fontFamily: 'San-serif', fontSize: 22}}>
-          New to this app
-        </Text>
-        <Button
-          text={'Sign up'}
-          onPress={() => navigation.navigate('Register')}
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
           style={{
-            backgroundColor: 'grey',
+            marginBottom: 10,
+            borderWidth: 0,
+            borderColor: 'gray',
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            padding: 15,
+            backgroundColor: '#7D67F7',
+            color: 'black',
+          }}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={{
+            marginBottom: 10,
+            padding: 15,
+            borderWidth: 0,
+            borderColor: 'gray',
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            backgroundColor: '#7D67F7',
+          }}
+        />
+        <Button
+          text={'Sign In'}
+          onPress={signIn}
+          style={{
+            backgroundColor: '#B4BAFF',
             padding: 15,
             borderRadius: 15,
             alignItems: 'center',
-            borderBottom: 10,
+            marginBottom: 10,
           }}
         />
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: 'black', fontFamily: 'San-serif', fontSize: 22}}>
+            New to this app
+          </Text>
+          <Button
+            text={'Sign up'}
+            onPress={() => navigation.navigate('Register')}
+            style={{
+              backgroundColor: '#7D67F7',
+              padding: 15,
+              borderRadius: 15,
+              alignItems: 'center',
+              borderBottom: 10,
+            }}
+          />
+        </View>
       </View>
     </View>
   );
